@@ -1,0 +1,46 @@
+---
+- name: Get device uptime
+  hosts:
+    - all
+  roles:
+    - Juniper.junos
+  connection: local
+  gather_facts: no
+  vars_prompt:
+    - name: username
+      prompt: Junos username
+      private: no
+
+    - name: password
+      prompt: Junos password
+      private: yes
+
+  tasks:
+    - name: get interface information 
+      juniper_junos_rpc:
+        rpcs:
+          - get-interface-information
+        dest_dir: '.'
+        return_output: yes
+        formats: xml
+        kwargs:
+          terse: True
+        provider:
+          host: "{{ ansible_host }}"
+          port: 22
+          user: "{{ username }}"
+          passwd: "{{ password }}"
+      register: interfaces
+    
+    - name: query interface information 
+      xml:
+        xmlstring: "{{ interfaces.stdout }}"
+        xpath: //logical-interface/address-family[address-family-name='inet']/interface-address/ifa-local
+        content: text
+      register: ip_addr
+
+
+    - name: show query results 
+      debug: 
+        var: ip_addr.matches
+        
