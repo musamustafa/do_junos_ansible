@@ -18,25 +18,19 @@
 
   tasks:
     - name: get uptime using galaxy module
-<<<<<<< HEAD
-      juniper_junos_rpc:
-        rpcs:
-          - get-system-uptime-information
-=======
       juniper_junos_command:
         commands:
           - show system uptime
->>>>>>> 4916e01e2590105cadf15d1c89ec9092f75b856d
         provider:
           host: "{{ ansible_host }}"
           port: 22
           user: "{{ username }}"
           passwd: "{{ password }}"
-<<<<<<< HEAD
       register: uptime
-=======
->>>>>>> 4916e01e2590105cadf15d1c89ec9092f75b856d
 
+    - name: display uptimes
+      debug:
+        var: uptime['stdout_lines'][3]
     - debug: var=inventory_hostname
       name: Get host name
 
@@ -44,9 +38,3 @@
             var: ansible_host
       name: Get IP address
 
-<<<<<<< HEAD
-    - name: display uptime 
-      debug: 
-        var: uptime.parsed_output['system-uptime-information']  ['system-booted-time']
-=======
->>>>>>> 4916e01e2590105cadf15d1c89ec9092f75b856d
