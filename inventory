@@ -1,3 +1,35 @@
-G1_1000    ansible_host=10.49.226.178
-G2_1001    ansible_hsot=10.49.226.176
-G3_1002    ansible_host=10.49.226.174
+[qfx]
+dn2q10k01   	ansible_host=198.18.235.24
+dn2q10k02   	ansible_host=198.18.235.27
+tc0q10k01   	ansible_host=198.18.214.24
+tc0q10k02	    ansible_host=198.18.214.27
+
+[lab_qfx]
+dt1q10k01       ansible_host=198.18.192.30
+dt1q10k02       ansible_host=198.18.192.34
+
+[mx480]
+bl0m4801	    ansible_host=198.18.248.1
+bl0m4802	    ansible_host=198.18.248.4
+dn2m4801	    ansible_host=198.18.246.24
+dn2m4802	    ansible_host=198.18.246.27
+dn2m4804	    ansible_host=198.18.246.30
+dn2m4805	    ansible_host=198.18.246.33
+dn2m4806	    ansible_host=198.18.246.36
+dn2m4807	    ansible_host=198.18.246.39
+dn2m4808	    ansible_host=198.18.225.28
+dn2m4809	    ansible_host=198.18.225.29
+
+[ex9200]
+bl0e9201	    ansible_host=198.18.248.9
+bl0e9202	    ansible_host=198.18.248.12
+bl0e9203	    ansible_host=198.18.248.15
+bl0e9204	    ansible_host=198.18.248.18
+dn2e9201	    ansible_host=198.18.246.1
+dn2e9202	    ansible_host=198.18.246.4
+dn2e9203	    ansible_host=198.18.246.7
+dn2e9204	    ansible_host=198.18.246.10
+DN2E9205	    ansible_host=198.18.235.16
+DN2E9206	    ansible_host=198.18.235.19
+TC0E9205	    ansible_host=198.18.214.16
+TC0E9206	    ansible_host=198.18.214.19

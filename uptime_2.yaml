@@ -1,6 +1,6 @@
 ---
 - name: Get device uptime
-  hosts:
+  hosts: 
     - all
   roles:
     - Juniper.junos
