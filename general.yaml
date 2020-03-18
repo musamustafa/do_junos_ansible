@@ -1,0 +1,50 @@
+---
+- name: Get device uptime
+  hosts: 
+    - all
+  roles:
+    - Juniper.junos
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - ./password.yaml
+
+  tasks:
+    - name: get uptime using galaxy module
+#      juniper_junos_facts:
+#      juniper_junos_config:
+      juniper_junos_command:
+        commands:
+          - "show system rollback compare 1 0"
+#        filter: "protocols/lldp"
+        provider:
+          host: "{{ ansible_host }}"
+          port: 22
+          user: "{{ vault_user }}"
+          passwd: "{{ vault_password }}"
+      register: result  
+#    - name: unused interfaces
+#      junos_unused_interfaces:
+#        provider:
+#          host: "{{ ansible_host }}"
+#          port: 22
+#          user: "{{ vault_user }}"
+#          passwd: "{{ vault_password }}"
+#      register: result 
+#    - name: Retrieve LLDP Neighbor Information Using PyEZ-included Table
+#      juniper_junos_table:
+#        file: "lldp.yml"
+#        provider:
+#          host: "{{ ansible_host }}"
+#          port: 22
+#          user: "{{ vault_user }}"
+#          passwd: "{{ vault_password }}"
+#      register: response
+#    - name: Print response
+#      debug:
+#        var: response
+    - name: display result
+      debug:
+        msg: "{{ result.stdout_lines }}"
+#        msg:  "This device is running on: {{ result.facts.version }}"

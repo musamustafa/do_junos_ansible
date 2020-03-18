@@ -1,0 +1,33 @@
+---
+- name: Get device uptime
+  hosts: 
+    - all
+  roles:
+    - Juniper.junos
+  connection: local
+  gather_facts: no
+
+#  vars_prompt:
+#    - name: username
+#      prompt: Junos username
+#      private: no
+
+  vars_files:
+    - ./password.yaml
+
+  tasks:
+    - name: get uptime using galaxy module
+      juniper_junos_command:
+        commands:
+          - show chassis alarms
+#        provider:
+        host: "{{ ansible_host }}"
+        port: 22
+        user: "{{ vault_user }}"
+        passwd: "{{ vault_password }}"
+      register: alarms
+
+    - name: display alarms
+      debug:
+        var: alarms['stdout_lines']
+      when: alarms['stdout_lines'][1] != "No alarms currently active"

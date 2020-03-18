@@ -1,0 +1,35 @@
+---
+- name: Get ARP information
+  hosts: tc0q10k01
+  roles:
+    - Juniper.junos
+  connection: local
+  gather_facts: no
+
+
+  vars_files:
+    - ./password.yaml
+
+  tasks:
+    - name: Get ARP information using Junos PyEZ Table
+      juniper_junos_table:        
+        file: "arp.yml"
+        host: "{{ ansible_host }}"
+        port: 22
+        user: "{{ vault_user }}"
+        passwd: "{{ vault_password }}"
+        table: "ArpTable"
+        dest: "./outputs/{{ ansible_host }}/arp_out.txt"
+      register: result
+
+    - name: Print response
+      debug:
+#        msg: "{{ result.resource.split() }}"
+
+
+
+        msg: Mac {{ item.mac_address }} is on {{ item.interface_name }}
+#        verbosity: 2
+      loop: "{{ result.resource }}"
+#      loop_control:
+#        label: "ip address is {{ item.ip_address }}"
